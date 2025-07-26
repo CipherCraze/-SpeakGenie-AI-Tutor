@@ -8,6 +8,11 @@ import { Button } from './ui/button';
 
 type TutorStatus = 'idle' | 'listening' | 'processing' | 'speaking' | 'error';
 
+interface VoiceTutorEnhancedProps {
+  autoStartMode?: 'free-flow' | 'wizard-academy' | 'enchanted-marketplace' | 'giants-castle' | 'storybook-kingdom' | 'school' | 'store' | 'home' | null;
+  onEnd?: () => void;
+}
+
 // Enhanced CSS animations - cleaner and more professional
 const enhancedStyles = `
   @keyframes breathe {
@@ -163,10 +168,6 @@ const GenieOrb = ({ status, onClick, disabled }: { status: TutorStatus, onClick:
 };
 
 // --- Main Voice Tutor Component ---
-interface VoiceTutorEnhancedProps {
-  autoStartMode?: 'free-flow' | 'school' | 'store' | 'home' | null;
-  onEnd: () => void;
-}
 
 export default function VoiceTutorEnhanced({ autoStartMode, onEnd }: VoiceTutorEnhancedProps) {
   const [status, setStatus] = useState<TutorStatus>('idle');
@@ -275,10 +276,14 @@ export default function VoiceTutorEnhanced({ autoStartMode, onEnd }: VoiceTutorE
 
   const getScenarioIcon = (scenarioId: string) => {
     switch (scenarioId) {
+      case 'wizard-academy': return <Wand2 className="h-5 w-5" />;
+      case 'enchanted-marketplace': return <Star className="h-5 w-5" />;
+      case 'giants-castle': return <Castle className="h-5 w-5" />;
+      case 'storybook-kingdom': return <Heart className="h-5 w-5" />;
       case 'school': return <School className="h-5 w-5" />;
       case 'store': return <ShoppingCart className="h-5 w-5" />;
       case 'home': return <Home className="h-5 w-5" />;
-      default: return <Wand2 className="h-5 w-5" />;
+      default: return <Sparkles className="h-5 w-5" />;
     }
   };
 

@@ -62,7 +62,7 @@ if (typeof document !== 'undefined') {
 export default function Dashboard() {
     const { user, isLoaded: isUserLoaded } = useUser();
     const [showVoiceTutor, setShowVoiceTutor] = useState(false);
-    const [selectedMode, setSelectedMode] = useState<'free-flow' | 'school' | 'store' | 'home' | null>(null);
+    const [selectedMode, setSelectedMode] = useState<'free-flow' | 'wizard-academy' | 'enchanted-marketplace' | 'giants-castle' | 'storybook-kingdom' | 'school' | 'store' | 'home' | null>(null);
     
     const userData = useQuery(api.users.getUserByToken,
         user?.id ? { tokenIdentifier: user.id } : "skip"
@@ -85,7 +85,7 @@ export default function Dashboard() {
         return <AuthErrorScreen />;
     }
 
-    const startTutor = (mode: 'free-flow' | 'school' | 'store' | 'home') => {
+    const startTutor = (mode: 'free-flow' | 'wizard-academy' | 'enchanted-marketplace' | 'giants-castle' | 'storybook-kingdom' | 'school' | 'store' | 'home') => {
         setSelectedMode(mode);
         setShowVoiceTutor(true);
     };
@@ -213,7 +213,7 @@ export default function Dashboard() {
                                 description="Learn spells and make magical friends at the most amazing school ever!"
                                 bgGradient="from-emerald-400 to-teal-500"
                                 borderGlow="emerald"
-                                onClick={() => startTutor('school')}
+                                onClick={() => startTutor('wizard-academy')}
                             />
                             <MagicalScenarioCard
                                 icon={<Store className="h-12 w-12 text-purple-600" />}
@@ -221,7 +221,7 @@ export default function Dashboard() {
                                 description="Trade magical items and discover mystical treasures with friendly merchants!"
                                 bgGradient="from-purple-400 to-indigo-500"
                                 borderGlow="purple"
-                                onClick={() => startTutor('store')}
+                                onClick={() => startTutor('enchanted-marketplace')}
                             />
                             <MagicalScenarioCard
                                 icon={<Home className="h-12 w-12 text-rose-600" />}
@@ -229,7 +229,7 @@ export default function Dashboard() {
                                 description="Help friendly giants with their daily adventures in a magical castle!"
                                 bgGradient="from-rose-400 to-pink-500"
                                 borderGlow="rose"
-                                onClick={() => startTutor('home')}
+                                onClick={() => startTutor('giants-castle')}
                             />
                             <MagicalScenarioCard
                                 icon={<BookOpen className="h-12 w-12 text-cyan-600" />}
@@ -237,7 +237,7 @@ export default function Dashboard() {
                                 description="Create your own fairy tales and bring magical stories to life!"
                                 bgGradient="from-cyan-400 to-blue-500"
                                 borderGlow="cyan"
-                                onClick={() => startTutor('free-flow')}
+                                onClick={() => startTutor('storybook-kingdom')}
                             />
                         </div>
                     </div>
