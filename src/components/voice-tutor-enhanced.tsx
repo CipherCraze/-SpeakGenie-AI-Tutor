@@ -8,47 +8,48 @@ import { Button } from './ui/button';
 
 type TutorStatus = 'idle' | 'listening' | 'processing' | 'speaking' | 'error';
 
-// Enhanced CSS animations
+// Enhanced CSS animations - cleaner and more professional
 const enhancedStyles = `
-  @keyframes magical-pulse {
-    0%, 100% { transform: scale(1); opacity: 1; }
-    50% { transform: scale(1.05); opacity: 0.8; }
+  @keyframes breathe {
+    0%, 100% { transform: scale(1); opacity: 0.8; }
+    50% { transform: scale(1.03); opacity: 1; }
   }
-  @keyframes float-gentle {
-    0%, 100% { transform: translateY(0px) rotate(0deg); }
-    33% { transform: translateY(-8px) rotate(1deg); }
-    66% { transform: translateY(4px) rotate(-1deg); }
+  @keyframes gentle-float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-6px); }
   }
-  @keyframes sparkle-dance {
-    0%, 100% { transform: rotate(0deg) scale(1); opacity: 0.7; }
-    25% { transform: rotate(90deg) scale(1.1); opacity: 1; }
-    50% { transform: rotate(180deg) scale(0.9); opacity: 0.8; }
-    75% { transform: rotate(270deg) scale(1.05); opacity: 0.9; }
+  @keyframes smooth-spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
   }
-  @keyframes wave-ripple {
-    0% { transform: scale(0.8); opacity: 1; }
-    100% { transform: scale(2.5); opacity: 0; }
+  @keyframes ripple-out {
+    0% { transform: scale(0.9); opacity: 0.8; }
+    100% { transform: scale(2); opacity: 0; }
   }
-  @keyframes glow-pulse {
-    0%, 100% { box-shadow: 0 0 20px rgba(168, 85, 247, 0.4); }
-    50% { box-shadow: 0 0 40px rgba(168, 85, 247, 0.8), 0 0 60px rgba(236, 72, 153, 0.6); }
+  @keyframes pulse-glow {
+    0%, 100% { box-shadow: 0 0 30px rgba(139, 92, 246, 0.3); }
+    50% { box-shadow: 0 0 50px rgba(139, 92, 246, 0.6); }
   }
-  .animate-magical-pulse { animation: magical-pulse 2s ease-in-out infinite; }
-  .animate-float-gentle { animation: float-gentle 4s ease-in-out infinite; }
-  .animate-sparkle-dance { animation: sparkle-dance 3s linear infinite; }
-  .animate-wave-ripple { animation: wave-ripple 1.5s ease-out infinite; }
-  .animate-glow-pulse { animation: glow-pulse 2s ease-in-out infinite; }
-  .glass-morphism {
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+  @keyframes slide-up {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
   }
-  .message-appear {
-    animation: messageAppear 0.5s ease-out forwards;
+  
+  .animate-breathe { animation: breathe 3s ease-in-out infinite; }
+  .animate-gentle-float { animation: gentle-float 3s ease-in-out infinite; }
+  .animate-smooth-spin { animation: smooth-spin 2s linear infinite; }
+  .animate-ripple-out { animation: ripple-out 2s ease-out infinite; }
+  .animate-pulse-glow { animation: pulse-glow 2.5s ease-in-out infinite; }
+  .animate-slide-up { animation: slide-up 0.6s ease-out forwards; }
+  
+  .clean-glass {
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(24px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
   }
-  @keyframes messageAppear {
-    from { opacity: 0; transform: translateY(20px) scale(0.95); }
-    to { opacity: 1; transform: translateY(0) scale(1); }
+  
+  .orb-shadow {
+    filter: drop-shadow(0 8px 32px rgba(0, 0, 0, 0.3));
   }
 `;
 
@@ -59,120 +60,102 @@ if (typeof document !== 'undefined') {
   document.head.appendChild(styleElement);
 }
 
-// Enhanced Genie Orb with magical effects and improved responsiveness
+// Clean and elegant Genie Orb - completely redesigned
 const GenieOrb = ({ status, onClick, disabled }: { status: TutorStatus, onClick: () => void, disabled: boolean }) => {
-    let icon, orbColor, pulseColor, statusText, animationClass, glowEffect;
+    let icon, orbGradient, statusText, animation, glowColor;
 
     switch (status) {
         case 'listening':
-            icon = <Mic className="h-1/2 w-1/2 drop-shadow-lg" />;
-            orbColor = 'bg-gradient-to-br from-red-400 via-red-500 to-red-600';
-            pulseColor = 'ring-red-300';
-            statusText = '🎤 Listening to your magic words...';
-            animationClass = 'animate-pulse';
-            glowEffect = 'shadow-lg shadow-red-500/50';
+            icon = <Mic className="h-16 w-16 text-white" />;
+            orbGradient = 'from-red-400 to-red-600';
+            statusText = '🎤 Listening...';
+            animation = 'animate-pulse';
+            glowColor = 'shadow-red-500/40';
             break;
         case 'processing':
-            icon = <BrainCircuit className="h-1/2 w-1/2 animate-spin drop-shadow-lg" />;
-            orbColor = 'bg-gradient-to-br from-yellow-400 via-amber-500 to-orange-500';
-            pulseColor = 'ring-yellow-300';
-            statusText = '🧠 Genie is thinking of magic...';
-            animationClass = 'animate-magical-pulse';
-            glowEffect = 'shadow-xl shadow-yellow-500/50';
+            icon = <BrainCircuit className="h-16 w-16 text-white animate-smooth-spin" />;
+            orbGradient = 'from-amber-400 to-orange-500';
+            statusText = '🧠 Thinking...';
+            animation = 'animate-breathe';
+            glowColor = 'shadow-amber-500/40';
             break;
         case 'speaking':
-            icon = <Volume2 className="h-1/2 w-1/2 animate-bounce drop-shadow-lg" />;
-            orbColor = 'bg-gradient-to-br from-blue-400 via-blue-500 to-blue-600';
-            pulseColor = 'ring-blue-300';
-            statusText = '🎵 Your magical friend is speaking!';
-            animationClass = 'animate-glow-pulse';
-            glowEffect = 'shadow-xl shadow-blue-500/50';
+            icon = <Volume2 className="h-16 w-16 text-white animate-bounce" />;
+            orbGradient = 'from-blue-400 to-blue-600';
+            statusText = '🎵 Speaking...';
+            animation = 'animate-pulse-glow';
+            glowColor = 'shadow-blue-500/40';
             break;
         case 'error':
-            icon = <Bot className="h-1/2 w-1/2 drop-shadow-lg" />;
-            orbColor = 'bg-gradient-to-br from-gray-400 to-gray-500';
-            pulseColor = '';
-            statusText = '😅 Oops! Magic needs a moment...';
-            animationClass = '';
-            glowEffect = 'shadow-md';
+            icon = <Zap className="h-16 w-16 text-white" />;
+            orbGradient = 'from-gray-400 to-gray-600';
+            statusText = '😅 Try again';
+            animation = '';
+            glowColor = 'shadow-gray-500/20';
             break;
         default: // idle
-            icon = <Sparkles className="h-1/2 w-1/2 animate-sparkle-dance drop-shadow-lg" />;
-            orbColor = 'bg-gradient-to-br from-purple-500 via-violet-500 to-pink-500';
-            pulseColor = 'ring-purple-400';
-            statusText = '✨ Tap the magic orb to speak!';
-            animationClass = 'animate-magical-pulse';
-            glowEffect = 'shadow-2xl shadow-purple-500/50';
+            icon = <Sparkles className="h-16 w-16 text-white animate-gentle-float" />;
+            orbGradient = 'from-violet-500 to-purple-600';
+            statusText = '✨ Tap to speak';
+            animation = 'animate-breathe';
+            glowColor = 'shadow-violet-500/40';
     }
 
     return (
-        <div className="flex flex-col items-center justify-center gap-4 sm:gap-6 text-center px-4">
-            {/* Magic orb with enhanced effects */}
+        <div className="flex flex-col items-center justify-center gap-8 text-center">
+            {/* Clean, modern orb design */}
             <div className="relative">
-                {/* Outer magical glow rings */}
-                <div className={`absolute inset-0 rounded-full ${pulseColor} opacity-30 animate-ping`}></div>
-                <div className={`absolute inset-0 rounded-full ${pulseColor} opacity-20 animate-pulse`} style={{ animationDelay: '0.5s' }}></div>
+                {/* Subtle background glow */}
+                <div className={`absolute inset-0 w-44 h-44 rounded-full bg-gradient-to-br ${orbGradient} opacity-20 blur-xl animate-gentle-float`}></div>
                 
-                {/* Wave ripples for listening state */}
+                {/* Ripple effect for listening */}
                 {status === 'listening' && (
-                    <>
-                        <div className="absolute inset-0 rounded-full border-2 border-red-300 animate-wave-ripple"></div>
-                        <div className="absolute inset-0 rounded-full border-2 border-red-300 animate-wave-ripple" style={{ animationDelay: '0.5s' }}></div>
-                    </>
+                    <div className="absolute inset-0 w-44 h-44 rounded-full border border-red-300/40 animate-ripple-out"></div>
                 )}
                 
+                {/* Main orb button */}
                 <button
                     onClick={onClick}
                     disabled={disabled}
-                    className={`relative group w-32 h-32 sm:w-40 sm:h-40 lg:w-48 lg:h-48 rounded-full text-white transition-all duration-500 ease-out transform hover:scale-110 active:scale-95
-                        ${orbColor}
-                        ${glowEffect}
-                        ${animationClass}
+                    className={`relative w-40 h-40 rounded-full bg-gradient-to-br ${orbGradient} text-white
+                        transition-all duration-300 ease-out transform hover:scale-105 active:scale-95
+                        ${glowColor} shadow-2xl orb-shadow ${animation}
                         ${disabled ? 'cursor-not-allowed opacity-70' : 'cursor-pointer hover:shadow-3xl'}
-                        overflow-hidden border-4 border-white/30`}
+                        border-2 border-white/20`}
                 >
-                    {/* Inner glow overlay */}
-                    <div className="absolute inset-0 rounded-full bg-gradient-to-t from-transparent via-white/10 to-white/30"></div>
+                    {/* Subtle inner highlight */}
+                    <div className="absolute inset-4 rounded-full bg-gradient-to-t from-transparent to-white/20"></div>
                     
-                    {/* Floating sparkles for idle state */}
-                    {status === 'idle' && (
-                        <>
-                            <div className="absolute top-1/4 left-1/4 w-2 h-2 bg-yellow-300 rounded-full animate-float-gentle" style={{ animationDelay: '0s' }}></div>
-                            <div className="absolute top-1/3 right-1/4 w-3 h-3 bg-blue-300 rounded-full animate-float-gentle" style={{ animationDelay: '1s' }}></div>
-                            <div className="absolute bottom-1/4 left-1/3 w-2 h-2 bg-pink-300 rounded-full animate-float-gentle" style={{ animationDelay: '1.5s' }}></div>
-                            <div className="absolute top-2/3 right-1/3 w-1 h-1 bg-cyan-300 rounded-full animate-float-gentle" style={{ animationDelay: '2s' }}></div>
-                        </>
-                    )}
-                    
-                    {/* Processing sparkles */}
-                    {status === 'processing' && (
-                        <>
-                            <div className="absolute top-1/4 left-1/4 w-2 h-2 bg-yellow-200 rounded-full animate-ping"></div>
-                            <div className="absolute bottom-1/4 right-1/4 w-2 h-2 bg-orange-200 rounded-full animate-ping" style={{ animationDelay: '0.5s' }}></div>
-                        </>
-                    )}
-                    
+                    {/* Icon container */}
                     <div className="relative z-10 w-full h-full flex items-center justify-center">
                         {icon}
                     </div>
                     
-                    {/* Hover effect overlay */}
-                    <div className="absolute inset-0 bg-white/20 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    {/* Hover overlay */}
+                    <div className="absolute inset-0 rounded-full bg-white/10 opacity-0 hover:opacity-100 transition-opacity duration-300"></div>
                 </button>
             </div>
             
-            {/* Enhanced status text */}
-            <div className="glass-morphism rounded-2xl px-4 py-3 sm:px-6 sm:py-4 max-w-xs sm:max-w-sm">
-                <p className="text-white font-bold text-sm sm:text-base lg:text-lg drop-shadow-lg text-center leading-relaxed">
+            {/* Clean status text */}
+            <div className="clean-glass rounded-2xl px-6 py-4 max-w-sm animate-slide-up">
+                <p className="text-white font-semibold text-lg leading-relaxed">
                     {statusText}
                 </p>
                 
-                {/* Status indicator dots */}
-                <div className="flex justify-center mt-2 gap-1">
-                    <div className={`w-2 h-2 rounded-full ${status === 'idle' ? 'bg-green-400 animate-pulse' : 'bg-white/30'}`}></div>
-                    <div className={`w-2 h-2 rounded-full ${status === 'listening' ? 'bg-red-400 animate-pulse' : 'bg-white/30'}`}></div>
-                    <div className={`w-2 h-2 rounded-full ${status === 'processing' ? 'bg-yellow-400 animate-pulse' : 'bg-white/30'}`}></div>
-                    <div className={`w-2 h-2 rounded-full ${status === 'speaking' ? 'bg-blue-400 animate-pulse' : 'bg-white/30'}`}></div>
+                {/* Simple status indicators */}
+                <div className="flex justify-center mt-3 gap-2">
+                    <div className={`w-2 h-2 rounded-full transition-colors duration-300 ${
+                        status === 'idle' ? 'bg-green-400' : 'bg-white/30'
+                    }`}></div>
+                    <div className={`w-2 h-2 rounded-full transition-colors duration-300 ${
+                        status === 'listening' ? 'bg-red-400' : 'bg-white/30'
+                    }`}></div>
+                    <div className={`w-2 h-2 rounded-full transition-colors duration-300 ${
+                        status === 'processing' ? 'bg-amber-400' : 'bg-white/30'
+                    }`}></div>
+                    <div className={`w-2 h-2 rounded-full transition-colors duration-300 ${
+                        status === 'speaking' ? 'bg-blue-400' : 'bg-white/30'
+                    }`}></div>
                 </div>
             </div>
         </div>
@@ -359,94 +342,83 @@ export default function VoiceTutorEnhanced({ autoStartMode, onEnd }: VoiceTutorE
   }
 
   return (
-    <div className="relative w-full min-h-screen flex flex-col bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-600 overflow-hidden">
-      {/* Enhanced floating decorations with better responsiveness */}
+    <div className="relative w-full min-h-screen flex flex-col bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900">
+      {/* Subtle background elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {/* Large floating orbs */}
-        <div className="absolute top-10 left-10 w-20 h-20 sm:w-32 sm:h-32 bg-gradient-to-r from-yellow-300/30 to-orange-300/30 rounded-full animate-float-gentle blur-sm"></div>
-        <div className="absolute top-20 right-20 w-16 h-16 sm:w-24 sm:h-24 bg-gradient-to-r from-blue-300/30 to-cyan-300/30 rounded-full animate-float-gentle blur-sm" style={{ animationDelay: '2s' }}></div>
-        <div className="absolute bottom-40 left-1/4 w-24 h-24 sm:w-40 sm:h-40 bg-gradient-to-r from-pink-300/30 to-purple-300/30 rounded-full animate-float-gentle blur-sm" style={{ animationDelay: '4s' }}></div>
-        
-        {/* Small twinkling particles */}
-        <div className="absolute top-1/4 left-1/3 w-2 h-2 bg-yellow-300 rounded-full animate-pulse opacity-70"></div>
-        <div className="absolute top-1/3 right-1/4 w-1 h-1 bg-cyan-300 rounded-full animate-ping opacity-60" style={{ animationDelay: '1s' }}></div>
-        <div className="absolute bottom-1/3 left-1/5 w-3 h-3 bg-pink-300 rounded-full animate-bounce opacity-50" style={{ animationDelay: '2s' }}></div>
-        <div className="absolute top-2/3 right-2/5 w-2 h-2 bg-green-300 rounded-full animate-pulse opacity-80" style={{ animationDelay: '3s' }}></div>
-        <div className="absolute bottom-1/4 right-1/6 w-1 h-1 bg-orange-300 rounded-full animate-ping opacity-70" style={{ animationDelay: '4s' }}></div>
+        <div className="absolute top-20 left-20 w-64 h-64 bg-violet-500/10 rounded-full blur-3xl animate-gentle-float"></div>
+        <div className="absolute bottom-20 right-20 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl animate-gentle-float" style={{ animationDelay: '2s' }}></div>
       </div>
       
-      {/* Enhanced header with improved mobile layout */}
-      <header className="relative z-20 p-4 sm:p-6">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2 sm:gap-3">
+      {/* Clean header */}
+      <header className="relative z-20 p-6">
+        <div className="flex items-center justify-between max-w-4xl mx-auto">
+          <div className="flex items-center gap-4">
             {selectedScenario && (
-              <div className="glass-morphism p-2 sm:p-3 rounded-full shadow-lg">
+              <div className="clean-glass p-3 rounded-full">
                 {getScenarioIcon(selectedScenario)}
               </div>
             )}
             <div>
-              <h2 className="text-lg sm:text-xl lg:text-2xl font-bold text-white drop-shadow-lg flex items-center gap-2">
-                <Wand2 className="text-yellow-300 h-5 w-5 sm:h-6 sm:w-6" />
+              <h2 className="text-2xl font-bold text-white flex items-center gap-3">
+                <Wand2 className="text-violet-400 h-6 w-6" />
                 {title}
               </h2>
-              <p className="text-white/70 text-xs sm:text-sm">Magical English Adventure</p>
+              <p className="text-white/60 text-sm">AI English Tutor</p>
             </div>
           </div>
           
-          <div className="flex items-center gap-2 sm:gap-3">
+          <div className="flex items-center gap-3">
               <LanguageSelector
                   currentLanguage={selectedLanguage}
                   onLanguageChange={handleLanguageChange}
               />
               <Button 
                   onClick={onEnd} 
-                  className="glass-morphism text-white hover:bg-white/30 backdrop-blur-lg rounded-full p-2 sm:p-3 border border-white/30 hover:border-white/50 transition-all duration-300 group"
+                  className="clean-glass text-white hover:bg-white/20 rounded-full p-3 transition-all duration-300 group"
               >
-                  <X className="h-4 w-4 sm:h-5 sm:w-5 group-hover:rotate-90 transition-transform duration-300" />
-                  <span className="sr-only">End Adventure</span>
+                  <X className="h-5 w-5 group-hover:rotate-90 transition-transform duration-300" />
               </Button>
           </div>
         </div>
       </header>
       
-      {/* Enhanced Chat History with better mobile layout */}
+      {/* Clean chat history */}
       <div 
         ref={chatContainerRef} 
-        className="flex-grow w-full max-w-4xl mx-auto space-y-3 sm:space-y-4 overflow-y-auto p-4 sm:p-6 pb-48 sm:pb-56 lg:pb-64 scrollbar-thin scrollbar-thumb-white/30 scrollbar-track-transparent relative z-10"
-        style={{ maxHeight: 'calc(100vh - 280px)' }}
+        className="flex-grow w-full max-w-3xl mx-auto space-y-4 overflow-y-auto p-6 pb-80 scrollbar-thin scrollbar-thumb-white/20 scrollbar-track-transparent relative z-10"
       >
           {chatHistory.map((message, index) => (
               <div
                 key={index}
-                className={`flex items-end gap-2 sm:gap-3 w-full transition-all duration-500 message-appear ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}
-                style={{ animationDelay: `${index * 100}ms` }}
+                className={`flex items-end gap-3 w-full transition-all duration-300 animate-slide-up ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}
+                style={{ animationDelay: `${index * 50}ms` }}
               >
                 {message.role === 'assistant' && (
-                  <div className="flex-shrink-0 self-start h-10 w-10 sm:h-12 sm:w-12 rounded-full bg-gradient-to-br from-purple-500 to-blue-500 text-white flex items-center justify-center border-2 border-white/50 shadow-lg group hover:scale-110 transition-transform duration-300">
-                      <Bot size={20} className="sm:w-6 sm:h-6 group-hover:animate-bounce" />
+                  <div className="flex-shrink-0 w-10 h-10 rounded-full bg-gradient-to-br from-violet-500 to-purple-600 text-white flex items-center justify-center shadow-lg">
+                      <Bot size={20} />
                   </div>
                 )}
                 <div
-                  className={`max-w-[85%] sm:max-w-xs lg:max-w-md p-3 sm:p-4 rounded-2xl shadow-lg text-sm sm:text-base transform transition-all duration-300 hover:scale-[1.02]
+                  className={`max-w-sm p-4 rounded-2xl shadow-lg transform hover:scale-[1.02] transition-transform duration-300
                     ${ message.role === 'user'
-                        ? 'bg-gradient-to-br from-green-400 to-emerald-500 text-white rounded-br-md shadow-green-500/30'
-                        : 'glass-morphism text-white rounded-bl-md shadow-purple-500/30 border border-white/20'
+                        ? 'bg-gradient-to-br from-blue-500 to-blue-600 text-white rounded-br-md'
+                        : 'clean-glass text-white rounded-bl-md'
                     }`}
                 >
-                  <p className="leading-relaxed break-words">{message.content}</p>
+                  <p className="leading-relaxed">{message.content}</p>
                   {message.translatedContent && message.translatedContent !== message.content && (
-                    <div className="mt-3 pt-3 border-t border-white/30">
-                      <p className="text-xs sm:text-sm text-white/80 flex items-center gap-1.5 mb-2">
-                        <Languages size={12} className="sm:w-4 sm:h-4" /> 
-                        <span className="font-medium">In your language:</span>
+                    <div className="mt-3 pt-3 border-t border-white/20">
+                      <p className="text-sm text-white/80 flex items-center gap-2 mb-2">
+                        <Languages size={14} /> 
+                        <span>Translation:</span>
                       </p>
-                      <p className="leading-relaxed font-medium text-yellow-200 break-words">{message.translatedContent}</p>
+                      <p className="leading-relaxed font-medium text-blue-200">{message.translatedContent}</p>
                     </div>
                   )}
                 </div>
                  {message.role === 'user' && (
-                  <div className="flex-shrink-0 self-start h-10 w-10 sm:h-12 sm:w-12 rounded-full bg-gradient-to-br from-green-400 to-emerald-500 text-white flex items-center justify-center border-2 border-white/50 shadow-lg group hover:scale-110 transition-transform duration-300">
-                      <User size={20} className="sm:w-6 sm:h-6 group-hover:animate-bounce" />
+                  <div className="flex-shrink-0 w-10 h-10 rounded-full bg-gradient-to-br from-blue-500 to-blue-600 text-white flex items-center justify-center shadow-lg">
+                      <User size={20} />
                   </div>
                 )}
               </div>
@@ -454,64 +426,38 @@ export default function VoiceTutorEnhanced({ autoStartMode, onEnd }: VoiceTutorE
             
             {error && (
               <div className="text-center mx-auto max-w-sm">
-                <div className="glass-morphism border border-red-300/50 rounded-2xl p-4 animate-pulse bg-gradient-to-r from-red-500/20 to-orange-500/20">
+                <div className="clean-glass rounded-2xl p-4 border border-red-400/30">
                   <div className="flex items-center justify-center gap-2 text-white">
-                    <Zap className="h-5 w-5 text-yellow-300" />
-                    <span className="text-sm sm:text-base font-medium">{error}</span>
+                    <Zap className="h-5 w-5 text-red-400" />
+                    <span className="font-medium">{error}</span>
                   </div>
                 </div>
               </div>
             )}
       </div>
       
-      {/* Enhanced floating action buttons */}
-      <div className="absolute bottom-32 sm:bottom-40 lg:bottom-44 right-4 sm:right-6 z-20 flex flex-col gap-2 sm:gap-3">
+      {/* Clean floating action button */}
+      <div className="absolute bottom-72 right-6 z-20">
         <Button 
           onClick={stopAll}
-          className="glass-morphism bg-gradient-to-r from-yellow-400 to-orange-500 hover:from-yellow-300 hover:to-orange-400 text-white rounded-full p-3 sm:p-4 shadow-lg hover:shadow-xl hover:scale-110 transform transition-all duration-300 border border-white/30 group"
+          className="clean-glass bg-violet-500/20 hover:bg-violet-500/30 text-white rounded-full p-4 shadow-lg hover:shadow-xl hover:scale-110 transform transition-all duration-300"
         >
-          <Sparkles className="h-5 w-5 sm:h-6 sm:w-6 group-hover:animate-spin" />
+          <Sparkles className="h-6 w-6" />
         </Button>
-        
-        {/* Volume indicator when speaking */}
-        {status === 'speaking' && (
-          <div className="glass-morphism rounded-full p-2 sm:p-3 animate-pulse">
-            <div className="flex gap-1">
-              <div className="w-1 h-4 bg-blue-400 rounded-full animate-bounce"></div>
-              <div className="w-1 h-6 bg-blue-400 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
-              <div className="w-1 h-4 bg-blue-400 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
-            </div>
-          </div>
-        )}
       </div>
       
-      {/* Enhanced magical interaction area */}
-      <footer className="absolute bottom-0 left-0 right-0 z-10">
+      {/* Elegant interaction area */}
+      <footer className="fixed bottom-0 left-0 right-0 z-30">
           <div className="relative">
-            {/* Magical glow effect */}
-            <div className="absolute inset-0 bg-gradient-to-t from-white/10 to-transparent backdrop-blur-xl"></div>
+            {/* Seamless gradient blend */}
+            <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/90 to-transparent backdrop-blur-sm"></div>
             
-            <div className="glass-morphism h-32 sm:h-40 lg:h-44 flex items-center justify-center border-t border-white/20 relative overflow-hidden">
-              {/* Decorative magical elements */}
-              <div className="absolute top-4 left-1/2 transform -translate-x-1/2">
-                <div className="flex gap-2">
-                  <div className="w-2 h-2 bg-yellow-300 rounded-full animate-pulse"></div>
-                  <div className="w-3 h-1 bg-purple-300 rounded-full animate-pulse" style={{ animationDelay: '0.5s' }}></div>
-                  <div className="w-2 h-2 bg-pink-300 rounded-full animate-pulse" style={{ animationDelay: '1s' }}></div>
-                </div>
-              </div>
-              
+            <div className="clean-glass h-64 flex items-center justify-center relative">
               <GenieOrb
                   status={status}
                   onClick={status === 'listening' ? stopAll : handleVoiceInput}
                   disabled={status === 'processing' || status === 'speaking'}
               />
-              
-              {/* Magical sparkles around the orb */}
-              <div className="absolute top-8 left-8 w-2 h-2 bg-yellow-300 rounded-full animate-ping opacity-70"></div>
-              <div className="absolute top-12 right-12 w-1 h-1 bg-blue-300 rounded-full animate-pulse opacity-80"></div>
-              <div className="absolute bottom-8 left-12 w-3 h-3 bg-pink-300 rounded-full animate-bounce opacity-60"></div>
-              <div className="absolute bottom-12 right-8 w-2 h-2 bg-green-300 rounded-full animate-ping opacity-70"></div>
             </div>
           </div>
       </footer>
