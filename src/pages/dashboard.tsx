@@ -192,23 +192,23 @@ export default function Dashboard() {
                     </div>
 
                     {/* Magical Adventure Worlds Section */}
-                    <div id="roleplays" className="max-w-6xl mx-auto mb-20">
-                        <div className="text-center mb-12">
-                            <div className="inline-flex items-center justify-center bg-white/10 backdrop-blur-lg rounded-full p-4 border border-white/20 shadow-xl mb-6">
-                                <Sparkles className="h-10 w-10 text-yellow-300 mr-3" />
-                                <h2 className="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-yellow-300 to-pink-300">
+                    <div id="roleplays" className="max-w-6xl mx-auto mb-20 px-3 sm:px-4 md:px-6">
+                        <div className="text-center mb-6 sm:mb-8 md:mb-12">
+                            <div className="inline-flex items-center justify-center bg-white/10 backdrop-blur-lg rounded-full p-2 sm:p-3 md:p-4 border border-white/20 shadow-xl mb-3 sm:mb-4 md:mb-6">
+                                <Sparkles className="h-5 w-5 sm:h-6 sm:w-6 md:h-8 md:w-8 lg:h-10 lg:w-10 text-yellow-300 mr-1 sm:mr-2 md:mr-3" />
+                                <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-yellow-300 to-pink-300">
                                     Magical Adventure Worlds
                                 </h2>
-                                <Sparkles className="h-10 w-10 text-pink-300 ml-3" />
+                                <Sparkles className="h-5 w-5 sm:h-6 sm:w-6 md:h-8 md:w-8 lg:h-10 lg:w-10 text-pink-300 ml-1 sm:ml-2 md:ml-3" />
                             </div>
-                            <p className="text-white/80 text-lg max-w-2xl mx-auto">
+                            <p className="text-white/80 text-xs sm:text-sm md:text-base lg:text-lg max-w-2xl mx-auto px-2 sm:px-4">
                                 Step into enchanted realms where every conversation is an adventure! 🗺️✨
                             </p>
                         </div>
                         
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 px-2 sm:gap-6 sm:px-0 md:gap-8">
                             <MagicalScenarioCard
-                                icon={<School className="h-12 w-12 text-emerald-600" />}
+                                icon={<School className="h-6 w-6 sm:h-8 sm:w-8 md:h-10 md:w-10 lg:h-12 lg:w-12 text-emerald-600" />}
                                 title="🏰 Wizard Academy"
                                 description="Learn spells and make magical friends at the most amazing school ever!"
                                 bgGradient="from-emerald-400 to-teal-500"
@@ -216,7 +216,7 @@ export default function Dashboard() {
                                 onClick={() => startTutor('wizard-academy')}
                             />
                             <MagicalScenarioCard
-                                icon={<Store className="h-12 w-12 text-purple-600" />}
+                                icon={<Store className="h-6 w-6 sm:h-8 sm:w-8 md:h-10 md:w-10 lg:h-12 lg:w-12 text-purple-600" />}
                                 title="🌟 Enchanted Marketplace"
                                 description="Trade magical items and discover mystical treasures with friendly merchants!"
                                 bgGradient="from-purple-400 to-indigo-500"
@@ -224,7 +224,7 @@ export default function Dashboard() {
                                 onClick={() => startTutor('enchanted-marketplace')}
                             />
                             <MagicalScenarioCard
-                                icon={<Home className="h-12 w-12 text-rose-600" />}
+                                icon={<Home className="h-6 w-6 sm:h-8 sm:w-8 md:h-10 md:w-10 lg:h-12 lg:w-12 text-rose-600" />}
                                 title="🏡 Giant's Cozy Castle"
                                 description="Help friendly giants with their daily adventures in a magical castle!"
                                 bgGradient="from-rose-400 to-pink-500"
@@ -232,7 +232,7 @@ export default function Dashboard() {
                                 onClick={() => startTutor('giants-castle')}
                             />
                             <MagicalScenarioCard
-                                icon={<BookOpen className="h-12 w-12 text-cyan-600" />}
+                                icon={<BookOpen className="h-6 w-6 sm:h-8 sm:w-8 md:h-10 md:w-10 lg:h-12 lg:w-12 text-cyan-600" />}
                                 title="📚 Storybook Kingdom"
                                 description="Create your own fairy tales and bring magical stories to life!"
                                 bgGradient="from-cyan-400 to-blue-500"
@@ -343,18 +343,24 @@ const MagicalScenarioCard = ({ icon, title, description, bgGradient, borderGlow,
 }) => (
     <button 
         onClick={onClick} 
-        className={`bg-white/10 backdrop-blur-lg hover:bg-white/20 rounded-3xl border border-white/20 hover:border-${borderGlow}-300/50 p-8 text-left hover:shadow-2xl hover:scale-105 transition-all duration-500 group relative overflow-hidden`}
+        className={`bg-white/10 backdrop-blur-lg hover:bg-white/20 rounded-xl sm:rounded-2xl lg:rounded-3xl border border-white/20 hover:border-${borderGlow}-300/50 p-3 sm:p-4 md:p-6 lg:p-8 text-left hover:shadow-2xl hover:scale-105 transition-all duration-500 group relative overflow-hidden w-full min-h-[200px] sm:min-h-[220px] md:min-h-[240px]`}
     >
         <div className={`absolute inset-0 bg-gradient-to-br ${bgGradient} opacity-0 group-hover:opacity-20 transition-opacity duration-500`}></div>
-        <div className="relative z-10">
-            <div className="bg-white/20 backdrop-blur-lg p-4 rounded-2xl w-fit mb-6 border border-white/30 group-hover:bg-white/30 transition-all duration-300">
+        <div className="relative z-10 h-full flex flex-col">
+            <div className="bg-white/20 backdrop-blur-lg p-2 sm:p-3 lg:p-4 rounded-lg sm:rounded-xl lg:rounded-2xl w-fit mb-3 sm:mb-4 lg:mb-6 border border-white/30 group-hover:bg-white/30 transition-all duration-300">
                 {icon}
             </div>
-            <h4 className="font-bold text-white text-2xl mb-3">{title}</h4>
-            <p className="text-white/80 text-lg leading-relaxed mb-6">{description}</p>
-            <div className="flex items-center text-white/70 group-hover:text-white transition-colors duration-300">
-                <span className="text-sm font-semibold">Start Adventure</span>
-                <ArrowRight className="h-4 w-4 ml-2 group-hover:translate-x-1 transition-transform duration-300" />
+            <h4 className="font-bold text-white text-base sm:text-lg md:text-xl lg:text-2xl mb-2 sm:mb-3 leading-tight">{title}</h4>
+            <p className="text-white/80 text-xs sm:text-sm md:text-base lg:text-lg leading-relaxed mb-4 sm:mb-5 lg:mb-6 flex-grow overflow-hidden"
+               style={{
+                 display: '-webkit-box',
+                 WebkitLineClamp: 3,
+                 WebkitBoxOrient: 'vertical'
+               }}
+            >{description}</p>
+            <div className="flex items-center text-white/70 group-hover:text-white transition-colors duration-300 mt-auto">
+                <span className="text-xs sm:text-sm font-semibold">Start Adventure</span>
+                <ArrowRight className="h-3 w-3 sm:h-4 sm:w-4 ml-2 group-hover:translate-x-1 transition-transform duration-300" />
             </div>
         </div>
     </button>
